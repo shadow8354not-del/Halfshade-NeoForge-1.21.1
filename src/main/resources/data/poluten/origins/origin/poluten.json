@@ -1,0 +1,28 @@
+{
+  "name": "Полутень",
+  "description": "Великий воин, который пытался победить тьму, проиграл в финальном сражении и стал получеловеком-полутенью.",
+  "icon": {
+    "id": "minecraft:echo_shard"
+  },
+  "impact": 3,
+  "order": 11,
+  "powers": [
+    "poluten:appearance",
+    "poluten:blindness",
+    "poluten:exhaustion",
+    "poluten:fall",
+    "poluten:fire",
+    "poluten:form",
+    "poluten:health",
+    "poluten:last_breath",
+    "poluten:night",
+    "poluten:phasing",
+    "poluten:poison",
+    "poluten:request",
+    "poluten:stomach",
+    "poluten:totem",
+    "poluten:transform",
+    "poluten:vignette_black",
+    "poluten:vignette_red"
+  ]
+}

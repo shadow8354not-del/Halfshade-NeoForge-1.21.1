@@ -1,0 +1,14 @@
+{
+  "type": "origins:modify_exhaustion",
+  "hidden": true,
+  "condition": {
+    "type": "origins:resource",
+    "resource": "poluten:form",
+    "comparison": "==",
+    "compare_to": 1
+  },
+  "modifier": {
+    "operation": "multiply_total_multiplicative",
+    "value": 4
+  }
+}

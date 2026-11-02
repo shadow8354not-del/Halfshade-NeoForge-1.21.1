@@ -1,0 +1,39 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.115'
+}
+
+group = 'ru.poluten'
+version = '1.0.5'
+base { archivesName = 'poluten' }
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    withSourcesJar()
+}
+repositories {
+    maven { url = 'https://api.modrinth.com/maven' }
+}
+neoForge {
+    version = '21.1.235'
+    runs {
+        client { client() }
+        server { server(); programArgument '--nogui' }
+    }
+    mods {
+        poluten { sourceSet sourceSets.main }
+    }
+}
+dependencies {
+    // Origins NeoForge 0.3; external dependency, not bundled in Halfshade.
+    implementation 'maven.modrinth:origins-neoforge:L4UUX3FG'
+    // Jupiter dependency pinned in the Origins 0.3 source project.
+    runtimeOnly 'maven.modrinth:jupiter:Jpcw76rq'
+}
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}
+tasks.named('jar', Jar) {
+    archiveFileName = "poluten-${project.version}-neoforge-1.21.1.jar"
+    from('LICENSE.txt')
+}

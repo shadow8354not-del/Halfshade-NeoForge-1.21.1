@@ -1,0 +1,14 @@
+{
+  "type": "origins:model_color",
+  "hidden": true,
+  "condition": {
+    "type": "origins:resource",
+    "resource": "poluten:form",
+    "comparison": "==",
+    "compare_to": 1
+  },
+  "red": 0.12,
+  "green": 0.1,
+  "blue": 0.18,
+  "alpha": 0.55
+}

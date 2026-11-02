@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+[[mods]]
+modId="poluten"
+version="1.0.5"
+displayName="Полутень"
+description="Происхождение Полутень для Origins NeoForge 0.3."
+[[dependencies.poluten]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.228,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.poluten]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+ordering="NONE"
+side="BOTH"
+[[dependencies.poluten]]
+modId="origins"
+type="required"
+versionRange="[0.3]"
+ordering="AFTER"
+side="BOTH"

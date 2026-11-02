@@ -1,0 +1,17 @@
+{
+  "type": "origins:phasing",
+  "hidden": true,
+  "condition": {
+    "type": "origins:resource",
+    "resource": "poluten:form",
+    "comparison": "==",
+    "compare_to": 1
+  },
+  "blacklist": true,
+  "block_condition": {
+    "type": "origins:in_tag",
+    "tag": "origins:unphasable"
+  },
+  "render_type": "blindness",
+  "view_distance": 10
+}

@@ -1,0 +1,10 @@
+{
+  "type": "origins:attribute",
+  "name": "Полумёртвый",
+  "description": "У вас 7 сердец вместо 10.",
+  "modifier": {
+    "attribute": "minecraft:generic.max_health",
+    "value": -6,
+    "operation": "add_value"
+  }
+}
