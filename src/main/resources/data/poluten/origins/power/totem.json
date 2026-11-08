@@ -1,5 +1,9 @@
 {
-  "type": "origins:empty",
-  "name": "Нет чистой души",
-  "description": "Тотемы бессмертия не спасают вас."
+  "type": "poluten:description",
+  "name": {
+    "translate": "power.poluten.totem.name"
+  },
+  "description": {
+    "translate": "power.poluten.totem.description"
+  }
 }

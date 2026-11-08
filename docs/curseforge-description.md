@@ -2,7 +2,7 @@
 
 A fallen warrior caught between humanity and shadow. Become a Halfshade, slip through walls, strike with wither-infused swords, and fight through your final breath.
 
-Halfshade adds one playable origin to **Origins (NeoForge) 0.3 by IAFEnvoy** for **Minecraft Java 1.21.1**.
+Halfshade adds one playable origin to **Origins (NeoForge) 0.3.2 or newer by IAFEnvoy** for **Minecraft Java 1.21.1**.
 
 ## Abilities
 
@@ -30,10 +30,10 @@ A black vignette appears in shadow form. It turns bright red at **10 hunger poin
 
 - Minecraft Java Edition **1.21.1**
 - **NeoForge 21.1.228 or later in the 21.1 branch**
-- **Origins (NeoForge), exactly version 0.3, by IAFEnvoy**
+- **Origins (NeoForge) 0.3.2 or newer, by IAFEnvoy**
 - **Jupiter**, the dependency required by that Origins port
 
-Install the Halfshade JAR in your `mods` folder alongside the required mods. For multiplayer, install it on both the server and clients. Choose **Полутень** in the Origins selection screen. The current in-game ability names and messages are in Russian.
+Install the Halfshade JAR in your `mods` folder alongside the required mods. For multiplayer, install it on both the server and clients. Choose **Halfshade** (English) or **Полутень** (Russian) in the Origins selection screen. Names, descriptions and ability messages follow your Minecraft language.
 
 Use the key assigned to **Origins Primary Active** in Controls. To select the origin in an existing world, use an Orb of Origin or this administrator command:
 
@@ -41,7 +41,7 @@ Use the key assigned to **Origins Primary Active** in Controls. To select the or
 /origin set @s origins:origin poluten:poluten
 ```
 
-This addon targets this specific NeoForge port; other Origins ports and versions have not been verified. Ability durations use game ticks: 10 seconds assumes the server runs at 20 TPS.
+Version 1.1.0 has been checked on Origins 0.3.2, 0.4-beta.1 and 0.4-beta.2. This addon targets the NeoForge port by IAFEnvoy. Compatibility with future releases must be checked when they become available. Ability durations use game ticks: 10 seconds assumes the server runs at 20 TPS.
 
 ## Development
 
@@ -61,4 +61,4 @@ The concept, abilities, and balance decisions were created by the project author
 
 **Последний вздох:** при смертельном уроне остаются 3,5 сердца, включается принудительная теневая форма, Сила II и Скорость I. Вас можно добить; через 10 секунд смерть неизбежна. Голод не отключает эту форму.
 
-Нужны Minecraft 1.21.1, NeoForge, Origins (NeoForge) строго 0.3 от IAFEnvoy и Jupiter. Дополнение устанавливается в `mods` на сервере и клиентах. Идея и баланс принадлежат автору проекта; реализация создана с помощью ИИ.
+Нужны Minecraft 1.21.1, NeoForge, Origins (NeoForge) 0.3.2 или новее от IAFEnvoy и Jupiter. Дополнение устанавливается в `mods` на сервере и клиентах. Идея и баланс принадлежат автору проекта; реализация создана с помощью ИИ.

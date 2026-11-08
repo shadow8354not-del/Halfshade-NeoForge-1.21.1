@@ -1,5 +1,9 @@
 {
-  "type": "origins:empty",
-  "name": "Нет ног",
-  "description": "В теневой форме вы не получаете урон от падения."
+  "type": "poluten:description",
+  "name": {
+    "translate": "power.poluten.fall.name"
+  },
+  "description": {
+    "translate": "power.poluten.fall.description"
+  }
 }

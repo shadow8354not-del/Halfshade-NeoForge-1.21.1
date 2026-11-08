@@ -1,5 +1,9 @@
 {
-  "type": "origins:empty",
-  "name": "Теневая пелена",
-  "description": "После выхода из блоков в теневой форме вы получаете слепоту на 2 секунды."
+  "type": "poluten:description",
+  "name": {
+    "translate": "power.poluten.blindness.name"
+  },
+  "description": {
+    "translate": "power.poluten.blindness.description"
+  }
 }

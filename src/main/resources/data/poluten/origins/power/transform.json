@@ -1,7 +1,11 @@
 {
   "type": "origins:active_self",
-  "name": "Превращение в тень",
-  "description": "Основная способность: проходите сквозь стены. Голод расходуется в 5 раз быстрее. На солнце вы горите. Нельзя использовать предметы и ломать блоки. Выйти из формы внутри блоков нельзя, но при 6 единицах голода она отключается принудительно.",
+  "name": {
+    "translate": "power.poluten.transform.name"
+  },
+  "description": {
+    "translate": "power.poluten.transform.description"
+  },
   "cooldown": 1,
   "key": {
     "key": "key.origins.primary_active",

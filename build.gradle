@@ -4,14 +4,17 @@ plugins {
 }
 
 group = 'ru.poluten'
-version = '1.0.5'
+version = '1.1.0'
 base { archivesName = 'poluten' }
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(21)
     withSourcesJar()
 }
 repositories {
-    maven { url = 'https://api.modrinth.com/maven' }
+    maven {
+        url = 'https://www.cursemaven.com'
+        content { includeGroup 'curse.maven' }
+    }
 }
 neoForge {
     version = '21.1.235'
@@ -24,10 +27,11 @@ neoForge {
     }
 }
 dependencies {
-    // Origins NeoForge 0.3; external dependency, not bundled in Halfshade.
-    implementation 'maven.modrinth:origins-neoforge:L4UUX3FG'
-    // Jupiter dependency pinned in the Origins 0.3 source project.
-    runtimeOnly 'maven.modrinth:jupiter:Jpcw76rq'
+    // Default to the minimum supported Origins release; override for compatibility tests.
+    implementation "curse.maven:origins-neoforge-1375372:${findProperty('origins_file') ?: '8758523'}"
+    runtimeOnly 'curse.maven:jupiter-1072905:7738312'
+    // Optional local compatibility mod, never bundled into the release.
+    if (findProperty('extra_mod')) runtimeOnly files(property('extra_mod'))
 }
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
@@ -36,4 +40,27 @@ tasks.withType(JavaCompile).configureEach {
 tasks.named('jar', Jar) {
     archiveFileName = "poluten-${project.version}-neoforge-1.21.1.jar"
     from('LICENSE.txt')
+}
+
+tasks.named('processResources', ProcessResources) {
+    inputs.property 'version', project.version
+    filesMatching('META-INF/neoforge.mods.toml') { expand version: project.version }
+}
+
+sourceSets {
+    integration {
+        java.srcDir 'tests/integration'
+        resources.srcDir 'tests/resources'
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+}
+tasks.register('integrationJar', Jar) {
+    dependsOn integrationClasses
+    archiveClassifier = 'checks'
+    from sourceSets.integration.output
+}
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
 }

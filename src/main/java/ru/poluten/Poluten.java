@@ -28,7 +28,10 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 public final class Poluten {
     private static final String DEADLINE="poluten_deadline", INSIDE="poluten_inside", POISON="poluten_poison";
     private static final ResourceLocation HALF=ResourceLocation.fromNamespaceAndPath("poluten","last_breath_health");
-    public Poluten() { NeoForge.EVENT_BUS.register(this); }
+    public Poluten(IEventBus modBus) {
+        DescriptionPower.TYPES.register(modBus);
+        NeoForge.EVENT_BUS.register(this);
+    }
     private static ResourceComponent resource(Entity p,String name) {
         return PowerHelper.get(p).getComponent(ResourceLocation.fromNamespaceAndPath("poluten",name),ResourceComponent.class).orElse(null);
     }
@@ -68,7 +71,7 @@ public final class Poluten {
             if(!dying(p)) {
                 if(shadow(p)) {
                     if(!in)form(p,0);
-                    else p.displayClientMessage(Component.literal("Нельзя выйти из тени внутри блоков."),true);
+                    else p.displayClientMessage(Component.translatable("message.poluten.inside_blocks"),true);
                 } else if(p.getFoodData().getFoodLevel()>6)form(p,1);
             }
         }
@@ -79,7 +82,7 @@ public final class Poluten {
             if(p.isUsingItem())p.stopUsingItem();
             if(d.getBoolean(INSIDE)&&!in)p.addEffect(new MobEffectInstance(MobEffects.BLINDNESS,40,0));
             if(p.level().isDay()&&p.level().dimensionType().hasSkyLight()&&!p.level().isRainingAt(p.blockPosition())&&p.level().canSeeSky(p.blockPosition().above()))p.igniteForSeconds(2);
-            if(!dying(p)&&p.tickCount%20==0&&p.getFoodData().getFoodLevel()<=8)p.displayClientMessage(Component.literal("Голод: "+p.getFoodData().getFoodLevel()+" — тень исчезнет на 6!"),true);
+            if(!dying(p)&&p.tickCount%20==0&&p.getFoodData().getFoodLevel()<=8)p.displayClientMessage(Component.translatable("message.poluten.low_hunger",p.getFoodData().getFoodLevel()),true);
         }
         d.putBoolean(INSIDE,shadow(p)&&in);
         if(p.level().dimensionType().hasSkyLight()&&p.level().isNight())p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,2,0,false,false,true));
@@ -90,12 +93,22 @@ public final class Poluten {
         health(p,true); p.setHealth(p.getMaxHealth()); form(p,1);
         p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,200,1,false,false,true));
         p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,200,0,false,false,true));
-        p.displayClientMessage(Component.literal("Последний вздох — осталось 10 секунд."),true);
+        p.displayClientMessage(Component.translatable("message.poluten.last_breath"),true);
         e.setCanceled(true);
     }
     @SubscribeEvent public void clone(PlayerEvent.Clone e) {
-        if(!e.isWasDeath())return;
         Player p=e.getEntity();
+        if(!e.isWasDeath()) {
+            // Leaving the End replaces the player entity without a death. Keep the
+            // absolute deadlines so the exit portal cannot cancel Last Breath.
+            CompoundTag previous=e.getOriginal().getPersistentData();
+            for(String key:new String[]{DEADLINE,POISON}) {
+                if(previous.contains(key))p.getPersistentData().putLong(key,previous.getLong(key));
+            }
+            health(p,dying(p));
+            if(dying(p))form(p,1);
+            return;
+        }
         p.getPersistentData().remove(DEADLINE);p.getPersistentData().remove(POISON);p.getPersistentData().remove(INSIDE);
         health(p,false);form(p,0);
     }
@@ -108,13 +121,13 @@ public final class Poluten {
         if(shadow(p)&&(!isSword(p.getMainHandItem())||inside(p)))e.setCanceled(true);
     }
     @SubscribeEvent public void hit(LivingDamageEvent.Post e) {
-        if(!(e.getSource().getEntity() instanceof ServerPlayer p)||e.getSource().getDirectEntity()!=p||!shadow(p)||!isSword(p.getMainHandItem())||e.getNewDamage()<=0||inside(p))return;
+        if(!(e.getSource().getEntity() instanceof ServerPlayer p)||!e.getSource().is(net.minecraft.world.damagesource.DamageTypes.PLAYER_ATTACK)||e.getSource().getDirectEntity()!=p||!shadow(p)||!isSword(p.getMainHandItem())||e.getNewDamage()<=0||inside(p))return;
         CompoundTag d=p.getPersistentData(); long remaining=d.getLong(POISON)-now(p);
         if(remaining>0&&remaining<=120)return;
         // Only spend the cooldown if the target actually accepts the effect.
         if(e.getEntity().addEffect(new MobEffectInstance(MobEffects.WITHER,60,0,false,true,true),p)) {
             d.putLong(POISON,now(p)+120);
-            p.displayClientMessage(Component.literal("Теневой яд — Иссушение I (3 с)"),true);
+            p.displayClientMessage(Component.translatable("message.poluten.shadow_venom"),true);
         }
     }
     @SubscribeEvent public void use(LivingEntityUseItemEvent.Start e) { if(shadow(e.getEntity()))e.setCanceled(true); }

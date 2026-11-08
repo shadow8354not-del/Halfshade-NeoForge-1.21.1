@@ -1,6 +1,10 @@
 {
-  "name": "Полутень",
-  "description": "Великий воин, который пытался победить тьму, проиграл в финальном сражении и стал получеловеком-полутенью.",
+  "name": {
+    "translate": "origin.poluten.poluten.name"
+  },
+  "description": {
+    "translate": "origin.poluten.poluten.description"
+  },
   "icon": {
     "id": "minecraft:echo_shard"
   },

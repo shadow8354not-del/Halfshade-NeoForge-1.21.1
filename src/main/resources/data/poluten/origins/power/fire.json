@@ -1,5 +1,9 @@
 {
-  "type": "origins:empty",
-  "name": "Тень уничтожает свет",
-  "description": "Вы получаете вдвое больше урона от огня и лавы."
+  "type": "poluten:description",
+  "name": {
+    "translate": "power.poluten.fire.name"
+  },
+  "description": {
+    "translate": "power.poluten.fire.description"
+  }
 }

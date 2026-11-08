@@ -1,5 +1,9 @@
 {
-  "type": "origins:empty",
-  "name": "Последний вздох",
-  "description": "Летальный урон оставляет вас в теневой форме с 3,5 сердца, Силой II и Скоростью I. Вас можно добить. Через 10 секунд вы неизбежно умираете. Голод не отключает эту форму."
+  "type": "poluten:description",
+  "name": {
+    "translate": "power.poluten.last_breath.name"
+  },
+  "description": {
+    "translate": "power.poluten.last_breath.description"
+  }
 }
